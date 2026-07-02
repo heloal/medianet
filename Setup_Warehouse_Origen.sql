@@ -11,15 +11,15 @@ IF OBJECT_ID('dbo.Ventas', 'U') IS NOT NULL
 CREATE TABLE dbo.Ventas (
     VentaID         INT           NOT NULL,
     Fecha           DATE          NOT NULL,
-    Cliente         NVARCHAR(100) NOT NULL,
-    Producto        NVARCHAR(100) NOT NULL,
-    Categoria       NVARCHAR(50)  NOT NULL,
+    Cliente         VARCHAR(100) NOT NULL,
+    Producto        VARCHAR(100) NOT NULL,
+    Categoria       VARCHAR(50)  NOT NULL,
     Cantidad        INT           NOT NULL,
     PrecioUnitario  DECIMAL(10,2) NOT NULL,
     Total           DECIMAL(12,2) NOT NULL,
-    Region          NVARCHAR(50)  NOT NULL,
-    Vendedor        NVARCHAR(100) NOT NULL,
-    FechaModificacion DATETIME2   NOT NULL DEFAULT SYSUTCDATETIME()
+    Region          VARCHAR(50)  NOT NULL,
+    Vendedor        VARCHAR(100) NOT NULL,
+    FechaModificacion DATE   NOT NULL 
 );
 
 INSERT INTO dbo.Ventas
