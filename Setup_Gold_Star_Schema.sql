@@ -8,7 +8,8 @@
 -- desde una celda PySpark.
 -- =========================================================
 
--- 1) Dimension Producto
+%%sql
+--Dimesion Producto
 CREATE OR REPLACE TABLE gold.dim_producto AS
 SELECT
     ROW_NUMBER() OVER (ORDER BY Producto) AS ProductoID,
@@ -16,27 +17,29 @@ SELECT
     Categoria
 FROM (
     SELECT DISTINCT Producto, Categoria
-    FROM silver.ventas_consolidado
+    FROM lh_silver.dbo.ventas_consolidado
 );
 
--- 2) Dimension Cliente
+
+--Dimension Cliente
 CREATE OR REPLACE TABLE gold.dim_cliente AS
 SELECT
     ROW_NUMBER() OVER (ORDER BY Cliente) AS ClienteID,
     Cliente
 FROM (
     SELECT DISTINCT Cliente
-    FROM silver.ventas_consolidado
+    FROM lh_silver.dbo.ventas_consolidado
 );
 
--- 3) Dimension Region
+--Dim Region
+
 CREATE OR REPLACE TABLE gold.dim_region AS
 SELECT
     ROW_NUMBER() OVER (ORDER BY Region) AS RegionID,
     Region
 FROM (
     SELECT DISTINCT Region
-    FROM silver.ventas_consolidado
+    FROM lh_silver.dbo.ventas_consolidado
 );
 
 -- 4) Dimension Fecha (version simple; la version reutilizable
