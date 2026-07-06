@@ -42,8 +42,7 @@ FROM (
     FROM lh_silver.dbo.ventas_consolidado
 );
 
--- 4) Dimension Fecha (version simple; la version reutilizable
---    via Dataflow Gen2 se construye en la Sesion 3, Practica 1)
+--Dimension Fecha
 CREATE OR REPLACE TABLE gold.dim_fecha AS
 SELECT
     Fecha,
@@ -53,10 +52,10 @@ SELECT
     DATE_FORMAT(Fecha, 'MMMM') AS NombreMes
 FROM (
     SELECT DISTINCT Fecha
-    FROM silver.ventas_consolidado
+    FROM lh_silver.dbo.ventas_consolidado
 );
 
--- 5) Tabla de hechos: fact_ventas
+--Tabla de hechos: fact_ventas
 CREATE OR REPLACE TABLE gold.fact_ventas AS
 SELECT
     v.VentaID,
@@ -68,7 +67,7 @@ SELECT
     v.PrecioUnitario,
     v.Total,
     v.Vendedor
-FROM silver.ventas_consolidado v
+FROM lh_silver.dbo.ventas_consolidado v
 JOIN gold.dim_producto p ON p.Producto = v.Producto
 JOIN gold.dim_cliente  c ON c.Cliente  = v.Cliente
 JOIN gold.dim_region   r ON r.Region   = v.Region;
